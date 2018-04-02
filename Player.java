@@ -16,6 +16,13 @@ public  class Player
     private int chips;
     private static int insurance;
     
+    /**
+     * The constructor for the Player class is below. It creates a hand for the player and starts off with the player having
+     * no insurance. It instantiates the number of chips of the player to the input when a Player object is created.
+     * @param: int
+     * @return: none
+     * @author: Matt Li
+     */
     public  Player(int numChips)
     {
         hand = new Hand();

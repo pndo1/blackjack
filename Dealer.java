@@ -14,6 +14,17 @@ public class Dealer
     private static Shoe shoe;
     private static Hand hand;
     private static int chipsPlayedPlayer,chipsPlayedDealer,chips,numChips,chipsWonPlayer,chipsWonDealer;
+    /**
+     * The constructor for the Dealer class is below. It instantiates the Shoe and Hand that the Dealer controls. It 
+     * starts of setting the number of chips the player and dealer have won to 0 at the start of the game. It sets
+     * the number of chips played by the player and dealer to 0 before the round starts. It also sets how many chips the
+     * dealer has to start off the game, which is the input c. It deals two card from the Shoe and adds it to his hand.
+     * It also keeps track of how many total chips are being bet with numChips, instantiated to 0 before the round.
+     * @param: int
+     * @return: none
+     * @Method author: Ryan
+     * @Javadocs author: Matt
+     */
     public Dealer(int c){
         chips=c;//is this working
         numChips=0;chipsWonPlayer=0;chipsWonDealer=0;
@@ -28,7 +39,8 @@ public class Dealer
      * This method reveals the first card in the dealer's hand by calling the getFirst() method from the hand. 
      * @param: none
      * @return: Card
-     * @author: Ryan
+     * @Method author: Ryan
+     * @Javadocs author: Matt
      */
     public Card revealHole(){
         return hand.getFirst();   
@@ -39,7 +51,8 @@ public class Dealer
      * than 17, the dealer stands.
      * @param: none
      * @return: void
-     * @author: Ryan
+     * @Method author: Ryan
+     * @Javadocs author: Matt
      */
     public void takeTurn(){
         while(hand.getTotalValue()<17){
@@ -52,13 +65,15 @@ public class Dealer
      * The dealCard() method allows the dealer to deal a card from the shoe.
      * @param: none
      * @return: Card
-     * @author: Ryan
-
+     * @Method author: Ryan
+     * @Javadocs author: Matt
      */
     public static Card dealCard(){
         return shoe.dealCard();
     }
-
+    /**
+     * 
+     */
     public void endRound(String w,String c){
         if(c.equals("blackjack")){
             if(w.equals("d")){
@@ -92,7 +107,9 @@ public class Dealer
             
             }
     }
-
+    /**
+     * The push method 
+     */
     public void push(){
         chipsWonDealer+=chipsPlayedDealer;
         chipsWonPlayer+=chipsPlayedPlayer;
