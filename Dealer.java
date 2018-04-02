@@ -32,8 +32,6 @@ public class Dealer
         chipsPlayedDealer=0;
         shoe=new Shoe(4);
         hand=new Hand();
-        hand.addCard(dealCard());
-        hand.addCard(dealCard());
     }
     /**
      * This method reveals the first card in the dealer's hand by calling the getFirst() method from the hand. 

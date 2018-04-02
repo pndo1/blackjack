@@ -19,7 +19,7 @@ public class Game
         player=new Player(numStartChips);
     }
 
-    public static  void play(){
+    public static void play(){
         while(numStartChips>0){
             deal.dealCard();
         }   
@@ -30,7 +30,10 @@ public class Game
         player=new Player(numStartChips);
         deal=new Dealer(numStartChips);
         player.hit();
+        deal.takeTurn();
         player.hit();
+        deal.takeTurn();
         System.out.println(deal.revealHole());
+        //Player takes turn
     }
 }
