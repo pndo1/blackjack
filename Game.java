@@ -12,11 +12,11 @@
 public class Game
 {
     private static Dealer deal;
-    private static Player play;
+    private static Player player;
     private static int numStartChips;
     public  Game(int n){
         numStartChips=n;
-        play=new Player(numStartChips);
+        player=new Player(numStartChips);
     }
 
     public static  void play(){
@@ -27,10 +27,10 @@ public class Game
 
     public static void main(String [] args){
         numStartChips=10;
-        play=new Player(numStartChips);
+        player=new Player(numStartChips);
         deal=new Dealer(numStartChips);
-        play.hit();
-        play.hit();
+        player.hit();
+        player.hit();
         System.out.println(deal.revealHole());
     }
 }
