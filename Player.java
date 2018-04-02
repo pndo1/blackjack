@@ -36,7 +36,6 @@ public  class Player
      * @param: none
      * @return: none (void method)
      * @author: Matt Li
-     * 
      */
     public void hit()
     {
