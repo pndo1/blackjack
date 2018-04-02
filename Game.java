@@ -19,9 +19,18 @@ public class Game
         System.out.print("Please enter a player name: ");
         String name=scan.next();
 
+<<<<<<< HEAD
         System.out.print("Please enter the number of chips you own: ");
         int numChips = scan.nextInt();
+=======
+    public static void play(){
+        while(numStartChips>0){
+            deal.dealCard();
+        }   
+    }
+>>>>>>> 1193b4bc2a6235ff89497c8f7302341dd4c5e2f4
 
+<<<<<<< HEAD
         System.out.println("Please enter the amount of chips you would like to bet: ");
         int betChips = scan.nextInt();
         if(betChips%2==1){
@@ -47,5 +56,46 @@ public class Game
         }
         
         //if(playInput.
+=======
+    public static void main(String [] args){
+        Scanner scan=new Scanner(System.in);
+        numStartChips=10;
+        player=new Player(numStartChips);
+        deal=new Dealer(numStartChips);
+        player.hit();
+        deal.takeTurn();
+        player.hit();
+        deal.takeTurn();
+        System.out.println("You have: ");
+        int playerValue=0;
+        for(Card c:player.revealCards()){
+            playerValue+=c.getCardValue();
+            System.out.println(c);
+        }
+        System.out.println("The value is: "+playerValue);
+        if(playerValue==21){
+            deal.endRound("p","blackjack");   
+        }
+        System.out.println("The dealer's second card is: "+deal.revealOpposite().get(0)+" with a value of: "+deal.revealOpposite().get(0).getCardValue());
+        if(deal.revealOpposite().get(0).getCardValue()==10){
+            if(deal.revealOpposite().get(0).getCardValue()+deal.revealHole().getCardValue()==21){
+                deal.endRound("d","blackjack");   
+            }
+        }
+        System.out.println("Would you like to hit or stand?");
+        String t=scan.nextLine();
+        if(t.equals("hit"))
+            player.hit();
+        System.out.println("You have: ");
+        System.out.println("The dealer is taking his turn");
+        deal.takeTurn();
+        playerValue=0;
+        for(Card c:player.revealCards()){
+            playerValue+=c.getCardValue();
+            System.out.println(c);
+        }
+        System.out.println("The value is: "+playerValue);
+        //Player takes turn
+>>>>>>> 1193b4bc2a6235ff89497c8f7302341dd4c5e2f4
     }
 }
