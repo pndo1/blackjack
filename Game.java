@@ -1,4 +1,4 @@
-
+import java.util.Scanner;
 /**
  * Game.java  
  *
@@ -33,7 +33,17 @@ public class Game
         deal.takeTurn();
         player.hit();
         deal.takeTurn();
-        System.out.println(deal.revealHole());
+        System.out.println("You have: ");
+        int playerValue=0;
+        for(Card c:player.revealCards()){
+            playerValue+=c.getCardValue();
+            System.out.println(c);
+        }
+        System.out.println("The value is: "+playerValue);
+        System.out.println("The dealer's second card is: ");
+        
+        
+        System.out.println("Would you like to hit or stand?");
         //Player takes turn
     }
 }
