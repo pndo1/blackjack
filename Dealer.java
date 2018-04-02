@@ -57,9 +57,7 @@ public class Dealer
     public void takeTurn(){
         while(hand.getTotalValue()<17){
             hand.addCard(dealCard());
-
         }
-
     }
     /**
      * The dealCard() method allows the dealer to deal a card from the shoe.
@@ -72,7 +70,11 @@ public class Dealer
         return shoe.dealCard();
     }
     /**
-     * 
+     * The endRound method is called at the end of the round and allocates the number of chips won by the player and dealer.
+     * @param: String, String
+     * @return: none (void)
+     * @Method author: Ryan
+     * @Javadocs author: Matt
      */
     public void endRound(String w,String c){
         if(c.equals("blackjack")){
@@ -97,11 +99,15 @@ public class Dealer
             numChips=0;
         }
         else if(c.equals("charlie")){
+            chipsWonPlayer += (chipsPlayedPlayer*2);
+            numChips = 0;
         }
         else if(c.equals("bust")){
+            
         }
         else if(c.equals("beat")){
-
+            chipsWonPlayer += (chipsPlayedPlayer*2);
+            numChips = 0;
         }
         if(Player.getHasInsurance()){
             
