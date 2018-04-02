@@ -1,8 +1,8 @@
-
+import java.util.Scanner;
 /**
  * Game.java  
  *
- * @author:
+ * @author:Pradnya Wani
  * Assignment #:
  * 
  * Brief Program Description:
@@ -11,26 +11,41 @@
  */
 public class Game
 {
-    private static Dealer deal;
-    private static Player player;
-    private static int numStartChips;
-    public  Game(int n){
-        numStartChips=n;
-        player=new Player(numStartChips);
-    }
+    public static void main(String[]args){
+        Player play;
+        Dealer deal;
+        Hand hand= new Hand();
+        Scanner scan= new Scanner(System.in);
+        System.out.print("Please enter a player name: ");
+        String name=scan.next();
 
-    public static  void play(){
-        while(numStartChips>0){
-            deal.dealCard();
-        }   
-    }
+        System.out.print("Please enter the number of chips you own: ");
+        int numChips = scan.nextInt();
 
-    public static void main(String [] args){
-        numStartChips=10;
-        player=new Player(numStartChips);
-        deal=new Dealer(numStartChips);
-        player.hit();
-        player.hit();
-        System.out.println(deal.revealHole());
+        System.out.println("Please enter the amount of chips you would like to bet: ");
+        int betChips = scan.nextInt();
+        if(betChips%2==1){
+            System.out.println("Please enter the amount of chips you would like to bet: ");
+            betChips = scan.nextInt();
+        }
+        play= new Player(numChips);
+        deal= new Dealer(numChips);
+
+        deal.dealCard();
+
+        System.out.println("Would you like to hit or stand: ");
+        String playInput= scan.next();
+
+        if(playInput.equals("hit")){
+            play.hit();
+        }
+        
+        deal.takeTurn();
+        
+        if(hand.getTotalValue()>=17){
+           String dealInput="stand";
+        }
+        
+        //if(playInput.
     }
 }
