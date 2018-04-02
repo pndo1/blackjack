@@ -106,17 +106,43 @@ public class Dealer
             }
     }
     /**
-     * The push method 
+     * The push method is used when there is a tie in a round. The player and dealer both get the number of chips they bet
+     * back, and the total number of chips in play is set to 0 since the round is now over.
+     * @param: none
+     * @return: none (void)
+     * @Method author: Ryan
+     * @Javadocs author: Matt
      */
     public void push(){
         chipsWonDealer+=chipsPlayedDealer;
         chipsWonPlayer+=chipsPlayedPlayer;
         numChips=0;
     }
-
+    /**
+     * The getChipsPlayedPlayer method returns the number of chips the player has bet.
+     * @param: none
+     * @return: int
+     * @Method author: Ryan
+     * @Javadocs author: Matt
+     */
     public static int getChipsPlayedPlayer(){return chipsPlayedPlayer;}
-
+    /**
+     * The isSecondAce method returns a boolean determining whether the second card in the dealer's hand is an ace or not.
+     * It returns true if the second card is an ace and false if it is not.
+     * @param: none
+     * @return: boolean
+     * @Method author: Ryan
+     * @Javadocs author: Matt
+     */
     public static boolean isSecondAce(){return hand.getOppositeOfFirst().get(0).isAce();}
-
+    /**
+     * The addChipsPlayedPlayer method adds a certain number of chips that the player will bet to the chipsPlayedPlayer
+     * variable to increase the number of chips the player played based on the input, and it also increases the total
+     * number of chips in play accordingly.
+     * @param: int
+     * @return: none (void)
+     * @Method author: Ryan
+     * @Javadocs author: Matt
+     */
     public static void addChipsPlayedPlayer(int n){chipsPlayedPlayer+=n; numChips+=n;}
 }
