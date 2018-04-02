@@ -15,7 +15,7 @@ public class Dealer
     private static Hand hand;
     private static int chipsPlayedPlayer,chipsPlayedDealer,chips,numChips,chipsWonPlayer,chipsWonDealer;
     public Dealer(int c){
-        chips=c;
+        chips=c;//is this working
         numChips=0;chipsWonPlayer=0;chipsWonDealer=0;
         chipsPlayedPlayer=0;
         chipsPlayedDealer=0;
