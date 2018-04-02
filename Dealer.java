@@ -1,4 +1,4 @@
-
+import java.util.ArrayList;
 /**
  * Dealer.java  
  *
@@ -32,9 +32,8 @@ public class Dealer
         chipsPlayedDealer=0;
         shoe=new Shoe(4);
         hand=new Hand();
-        hand.addCard(dealCard());
-        hand.addCard(dealCard());
     }
+
     /**
      * This method reveals the first card in the dealer's hand by calling the getFirst() method from the hand. 
      * @param: none
@@ -45,6 +44,18 @@ public class Dealer
     public Card revealHole(){
         return hand.getFirst();   
     }
+
+    /**
+     * This method reveals the other cards in the dealer's hand by calling the getOppositeOfFirst() method from the hand. 
+     * @param: none
+     * @return: Card
+     * @Method author: Ryan
+     * @Javadocs author: Ryan
+     */
+    public ArrayList<Card> revealOpposite(){
+        return hand.getOppositeOfFirst();   
+    }
+
     /**
      * The takeTurn() method forces the dealer to hit or stand based on the total value of his cards, which is found
      * by calling the getTotalValue() method from the Hand class. If the total value of the dealer's cards is less
@@ -59,6 +70,7 @@ public class Dealer
             hand.addCard(dealCard());
         }
     }
+
     /**
      * The dealCard() method allows the dealer to deal a card from the shoe.
      * @param: none
@@ -69,6 +81,7 @@ public class Dealer
     public static Card dealCard(){
         return shoe.dealCard();
     }
+
     /**
      * The endRound method is called at the end of the round and allocates the number of chips won by the player and dealer.
      * @param: String, String
@@ -110,9 +123,10 @@ public class Dealer
             numChips = 0;
         }
         if(Player.getHasInsurance()){
-            
-            }
+
+        }
     }
+
     /**
      * The push method is used when there is a tie in a round. The player and dealer both get the number of chips they bet
      * back, and the total number of chips in play is set to 0 since the round is now over.
@@ -126,6 +140,7 @@ public class Dealer
         chipsWonPlayer+=chipsPlayedPlayer;
         numChips=0;
     }
+
     /**
      * The getChipsPlayedPlayer method returns the number of chips the player has bet.
      * @param: none
@@ -134,6 +149,7 @@ public class Dealer
      * @Javadocs author: Matt
      */
     public static int getChipsPlayedPlayer(){return chipsPlayedPlayer;}
+
     /**
      * The isSecondAce method returns a boolean determining whether the second card in the dealer's hand is an ace or not.
      * It returns true if the second card is an ace and false if it is not.
@@ -143,6 +159,7 @@ public class Dealer
      * @Javadocs author: Matt
      */
     public static boolean isSecondAce(){return hand.getOppositeOfFirst().get(0).isAce();}
+
     /**
      * The addChipsPlayedPlayer method adds a certain number of chips that the player will bet to the chipsPlayedPlayer
      * variable to increase the number of chips the player played based on the input, and it also increases the total

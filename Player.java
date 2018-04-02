@@ -1,4 +1,4 @@
-
+import java.util.ArrayList;
 /**
  * Player.java  
  *
@@ -15,7 +15,7 @@ public  class Player
     private static boolean hasInsurance;
     private int chips;
     private static int insurance;
-    
+
     /**
      * The constructor for the Player class is below. It creates a hand for the player and starts off with the player having
      * no insurance. It instantiates the number of chips of the player to the input when a Player object is created.
@@ -29,6 +29,7 @@ public  class Player
         hasInsurance = false;
         chips = numChips;
     }
+
     /**
      * This method calls the dealCard() method in the Dealer to add a card to the player's hand 
      * of cards. 
@@ -40,7 +41,7 @@ public  class Player
     {
         hand.addCard(Dealer.dealCard());
     }
-    
+
     /***
      * This method doubles the number of chips bet by the player by calling the dealer's
      * getChipsPlayedPlayer() and then deals one more card to the player by calling the 
@@ -56,7 +57,7 @@ public  class Player
         Dealer.addChipsPlayedPlayer(a);
         hit();
     }
-    
+
     /**
      * This method only allows the method to purchase insurance if the dealer's up-card ia an
      * Ace. If the dealer's up-card is an Ace, it changes the hasInsurance variable to true
@@ -74,7 +75,7 @@ public  class Player
             //asdf
         }
     }
-    
+
     /**
      * This method lets the dealer check if the player purchased insurance to determine scoring.
      * The actual scoring will be handled in the dealer class.
@@ -86,6 +87,6 @@ public  class Player
     {
         return hasInsurance;
     }
-    
-    
+
+    public ArrayList<Card> revealCards(){return hand.reveal();}
 }

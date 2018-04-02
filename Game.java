@@ -1,4 +1,4 @@
-
+import java.util.Scanner;
 /**
  * Game.java  
  *
@@ -19,7 +19,7 @@ public class Game
         player=new Player(numStartChips);
     }
 
-    public static  void play(){
+    public static void play(){
         while(numStartChips>0){
             deal.dealCard();
         }   
@@ -30,7 +30,20 @@ public class Game
         player=new Player(numStartChips);
         deal=new Dealer(numStartChips);
         player.hit();
+        deal.takeTurn();
         player.hit();
-        System.out.println(deal.revealHole());
+        deal.takeTurn();
+        System.out.println("You have: ");
+        int playerValue=0;
+        for(Card c:player.revealCards()){
+            playerValue+=c.getCardValue();
+            System.out.println(c);
+        }
+        System.out.println("The value is: "+playerValue);
+        System.out.println("The dealer's second card is: ");
+        
+        
+        System.out.println("Would you like to hit or stand?");
+        //Player takes turn
     }
 }
