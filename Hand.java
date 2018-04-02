@@ -58,8 +58,10 @@ public class Hand
      * @javadocs author: Ryan
      */
     public ArrayList<Card> getOppositeOfFirst(){ 
-        ArrayList<Card> temp=cards;
-        temp.remove(0);
+        ArrayList<Card> temp=new ArrayList<Card>();
+        for(int i=1;i<cards.size();i++){
+            temp.add(cards.get(i));
+        }
         return temp;
     }
 
