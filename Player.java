@@ -59,20 +59,23 @@ public  class Player
     }
 
     /**
-     * This method only allows the method to purchase insurance if the dealer's up-card ia an
-     * Ace. If the dealer's up-card is an Ace, it changes the hasInsurance variable to true
-     * and adds insurance by adding half of the total chips played by the player.
-     * @param: none
+     * This method lets the player buy insurance, with the Game class checking for the Dealer's second Ace. 
+     * The c integer is the number of extra chips bet by the player.
+     * @param: int c
      * @return: none (void)
-     * @author: Matt Li
+     * @author: Ryan Mitchell
      */
-    public void buyInsurance()
+    public void buyInsurance(int c)
     {
-        if (Dealer.isSecondAce())
+        if (c<=Dealer.getChipsPlayedPlayer()/2)
         {
             hasInsurance = true;
+<<<<<<< HEAD
             insurance = Dealer.getChipsPlayedPlayer()/2;
             
+=======
+            insurance = c;
+>>>>>>> 834a2bf1430546f361ce00538aee2ecd58e7d40d
         }
     }
 
