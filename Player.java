@@ -72,7 +72,7 @@ public  class Player
         {
             hasInsurance = true;
             insurance = Dealer.getChipsPlayedPlayer()/2;
-            //asdf
+            
         }
     }
 
