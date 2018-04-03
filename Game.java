@@ -21,7 +21,7 @@ public class Game
         System.out.print("Please enter a player name: ");
         String name=scan.next();
 
-        System.out.print("Please enter the number of chips you own: ");
+        System.out.print("Please enter the number of chips each player will start with: ");
         int numStartChips = scan.nextInt();
 
         System.out.println("Please enter the amount of chips you would like to bet: ");
