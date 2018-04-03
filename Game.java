@@ -93,6 +93,15 @@ public class Game
                 deal.endRound("d","blackjack");   
             }
         }
+        if(deal.isSecondAce()){
+            System.out.println("Would you like to buy insurance? ");
+            String insure=scan.nextLine();
+            if(insure.equals("yes")){
+                System.out.println("How many chips would you like to buy? Maximum of "+betChips/2);
+                int insureChips=scan.nextInt();
+                player.buyInsurance(insureChips);
+            }
+        }
         System.out.println("Would you like to hit or stand?");
         String t=scan.nextLine();
         if(t.equals("hit"))
