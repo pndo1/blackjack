@@ -57,6 +57,18 @@ public class Dealer
     }
 
     /**
+     * This method reveals the value of all of the cards in the dealer's hand. 
+     * @param: none
+     * @return: int
+     * @Method author: Ryan
+     * @Javadocs author: Ryan
+     */
+    public int getValue(){
+
+        return hand.getTotalValue();   
+    }
+
+    /**
      * The takeTurn() method forces the dealer to hit or stand based on the total value of his cards, which is found
      * by calling the getTotalValue() method from the Hand class. If the total value of the dealer's cards is less
      * than 17, the dealer stands.
@@ -116,7 +128,7 @@ public class Dealer
             numChips = 0;
         }
         else if(c.equals("bust")){
-            
+
         }
         else if(c.equals("beat")){
             chipsWonPlayer += (chipsPlayedPlayer*2);
