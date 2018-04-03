@@ -70,12 +70,8 @@ public  class Player
         if (c<=Dealer.getChipsPlayedPlayer()/2)
         {
             hasInsurance = true;
-<<<<<<< HEAD
-            insurance = Dealer.getChipsPlayedPlayer()/2;
-            
-=======
+
             insurance = c;
->>>>>>> 834a2bf1430546f361ce00538aee2ecd58e7d40d
         }
     }
 
