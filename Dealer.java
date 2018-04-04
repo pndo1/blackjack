@@ -78,12 +78,13 @@ public class Dealer
         boolean dealerOn=true;
         boolean win=false;
         int playerTurn=0;
-        System.out.println("You have: ");
+        System.out.println("\nYou have: ");
         int playerValue=0;
         for(Card ca:player.revealCards()){
             playerValue+=ca.getCardValue();
             System.out.println(ca);
         }
+        System.out.println("The value is: "+playerValue);
         while(playerOn && !win){
             System.out.print("\nWould you like to hit, stand, or double down? ");
             String t=scan.next();
@@ -110,46 +111,41 @@ public class Dealer
                 win=true;
                 playerOn=false;
                 endRound("p","blackjack"); 
-                System.out.println("player blackjack");
+                //System.out.println("player blackjack");
             }
             if(playerValue>21){
                 win=true;
                 playerOn=false;
                 endRound("p","bust");   
-                System.out.println("player bust");
+                //System.out.println("player bust");
             }
             if(playerValue<21 && player.revealCards().size()==5){
                 win=true;
                 playerOn=false;
                 endRound("p","charlie");
-                System.out.println("player charlie");
+                //System.out.println("player charlie");
             }
             if(t.equals("stand")){
                 playerOn=false;
             }
         }
-        System.out.println("The dealer is taking his turn");
-        System.out.println("The dealer's deck is: ");
-        System.out.println(revealHole()+"\n"+revealOpposite().get(0));
+        System.out.println(win+"\n"+dealerOn+"\n"+getValue());
         while(dealerOn && getValue()<17 && !win){
+            System.out.println("The dealer is taking his turn");
+            System.out.println("The dealer's deck is: ");
+            System.out.println(revealHole()+"\n"+revealOpposite().get(0));
             takeTurn();
             if(getValue()==21){
                 win=true;
                 dealerOn=false;
                 endRound("d","blackjack");
-                System.out.println("dealer blackjack");
+                //System.out.println("dealer blackjack");
             }
             if(getValue()>21){
                 win=true;
                 dealerOn=false;
                 endRound("d","bust");  
-                System.out.println("dealer bust");
-            }
-            if(getValue()<21 && hand.reveal().size()==5){
-                win=true;
-                dealerOn=false;
-                endRound("d","charlie");
-                System.out.println("dealer charlie");
+                //System.out.println("dealer bust");
             }
         }      
     }
@@ -223,6 +219,8 @@ public class Dealer
      * @Javadocs author: Matt
      */
     public void endRound(String w,String c){
+
+        System.out.println("endRound called");
         if(c.equals("blackjack")){
             if(w.equals("d")){
                 int chipWin=chipsPlayedDealer+chipsPlayedDealer*3/2;
@@ -232,6 +230,7 @@ public class Dealer
                 numChips=0;
             }
             else if(w.equals("p")){
+                System.out.println("You won blackjack!");
                 int chipWin=chipsPlayedPlayer+chipsPlayedPlayer*3/2;
                 numChips-=chipWin;
                 chipsWonPlayer+=chipWin;
@@ -249,7 +248,22 @@ public class Dealer
             numChips = 0;
         }
         else if(c.equals("bust")){
-
+            if(w.equals("d")){
+                System.out.println("The dealer busted!");
+                int chipWin=0;
+                numChips-=chipWin;
+                chipsWonDealer+=chipWin;
+                chipsWonPlayer+=numChips;
+                numChips=0;
+            }
+            else if(w.equals("p")){
+                System.out.println("You busted!");
+                int chipWin=0;
+                numChips-=chipWin;
+                chipsWonPlayer+=chipWin;
+                chipsWonDealer+=numChips;
+                numChips=0;
+            }
         }
         else if(c.equals("beat")){
             chipsWonPlayer += (chipsPlayedPlayer*2);
@@ -258,6 +272,9 @@ public class Dealer
         if(player.getHasInsurance()){
 
         }
+        System.out.println("You've won: "+chipsWonPlayer);
+        System.out.println("The dealer has won: "+chipsWonDealer);
+        System.out.println("You have "+player.getChips()+" remaining");
     }
 
     /**
