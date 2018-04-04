@@ -70,7 +70,6 @@ public  class Player
         if (c<=Dealer.getChipsPlayedPlayer()/2)
         {
             hasInsurance = true;
-
             insurance = c;
         }
     }
@@ -86,6 +85,24 @@ public  class Player
     {
         return hasInsurance;
     }
-
+    
+    /**
+     * This method returns the number of chips the player has. It will not be called in the Game,
+     * but it has been written for testing purposes to make sure number of chips the player has
+     * changes acordingly when it double downs or buys insurance.
+     * @param: none
+     * @return: int
+     * @author: Matt
+     * @javadocs author: Matt
+     */
+    public int getChips()
+    {
+        return chips;
+    }
+    
+    public void removeChips(int remove)
+    {
+        chips -= remove;
+    }
     public ArrayList<Card> revealCards(){return hand.reveal();}
 }
