@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Scanner;
 /**
  * Dealer.java  
  *
@@ -14,6 +15,10 @@ public class Dealer
     private static Shoe shoe;
     private static Hand hand;
     private static int chipsPlayedPlayer,chipsPlayedDealer,chips,numChips,chipsWonPlayer,chipsWonDealer;
+    private static Player player;
+    private String name;
+    private Scanner scan;
+    private boolean win;
     /**
      * The constructor for the Dealer class is below. It instantiates the Shoe and Hand that the Dealer controls. It 
      * starts of setting the number of chips the player and dealer have won to 0 at the start of the game. It sets
@@ -25,13 +30,115 @@ public class Dealer
      * @Method author: Ryan
      * @Javadocs author: Matt
      */
-    public Dealer(int c){
+    public Dealer(int c, String name, int bet){
+        scan=new Scanner(System.in);
+        win=false;
+        name=name;
         chips=c;//is this working
         numChips=0;chipsWonPlayer=0;chipsWonDealer=0;
-        chipsPlayedPlayer=0;
+        chipsPlayedPlayer=bet;
         chipsPlayedDealer=0;
         shoe=new Shoe(4);
         hand=new Hand();
+        player=new Player(c);
+        player.hit();
+        takeTurn();
+        player.hit();
+        takeTurn();
+        //System.out.println("You have: ");
+        int playerValue=0;
+        for(Card ca:player.revealCards()){
+            playerValue+=ca.getCardValue();
+            //System.out.println(ca);
+        }
+        //System.out.println("The value is: "+playerValue);
+        if(playerValue==21){
+            endRound("p","blackjack");   
+        }
+        System.out.print("The dealer's second card is: "+revealOpposite().get(0)+" with a value of: "+revealOpposite().get(0).getCardValue());
+        if(revealOpposite().get(0).getCardValue()==10){
+            if(revealOpposite().get(0).getCardValue()+revealHole().getCardValue()==21){endRound("d","blackjack");   
+            }
+        }
+        if(isSecondAce()){
+            System.out.print("Would you like to buy insurance? ");
+            String insure=scan.next();
+            if(insure.equals("yes")){
+                System.out.print("How many chips would you like to buy? Maximum of "+chipsPlayedPlayer/2);
+                int insureChips=scan.nextInt();
+                player.buyInsurance(insureChips);
+            }
+        }
+    }
+
+    public void nextRound(){
+        boolean playerOn=true;
+        boolean dealerOn=true;
+        int playerTurn=0;
+        System.out.println("You have: ");
+        int playerValue=0;
+        for(Card ca:player.revealCards()){
+            playerValue+=ca.getCardValue();
+            System.out.println(ca);
+        }
+        while(playerOn){
+            System.out.print("\nWould you like to hit, stand, or double down? ");
+            String t=scan.next();
+            if(t.equals("hit")){
+                System.out.println("You now have: ");
+                player.hit();        playerValue=0;
+                for(Card c:player.revealCards()){
+                    playerValue+=c.getCardValue();
+                    System.out.println(c);
+                }
+                System.out.println("The value is: "+playerValue);
+            }
+            if(t.equals("double down")){
+                System.out.println("You now have: ");
+
+                player.removeChips(chipsPlayedPlayer);
+                chipsPlayedPlayer*=2;
+                player.hit();        playerValue=0;
+                for(Card c:player.revealCards()){
+                    playerValue+=c.getCardValue();
+                    System.out.println(c);
+                }
+                System.out.println("The value is: "+playerValue);
+            }
+            if(playerValue==21){
+                win=true;
+                playerOn=false;
+                endRound("p","blackjack"); 
+                System.out.println("player blackjack");
+            }
+            if(playerValue>21){
+                win=true;
+                playerOn=false;
+                endRound("p","bust");   
+                System.out.println("player bust");
+            }
+            if(t.equals("stand")){
+                playerOn=false;
+            }
+        }
+        System.out.println("The dealer is taking his turn");
+        System.out.println("The dealer's deck is: ");
+        System.out.println(revealHole()+"\n"+revealOpposite().get(0));
+        while(dealerOn && getValue()<17){
+            takeTurn();
+            if(getValue()==21){
+                win=true;
+                dealerOn=false;
+                endRound("d","blackjack");
+                System.out.println("dealer blackjack");
+            }
+            if(getValue()>21){
+                win=true;
+                dealerOn=false;
+                endRound("d","bust");  
+                System.out.println("dealer bust");
+            }
+        }      
     }
 
     /**
@@ -81,6 +188,7 @@ public class Dealer
         while(hand.getTotalValue()<17){
             hand.addCard(dealCard());
         }
+
     }
 
     /**
