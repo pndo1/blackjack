@@ -53,7 +53,7 @@ public  class Player
     public void doubleDown()
     {
         int a = Dealer.getChipsPlayedPlayer();
-        chips -= Dealer.getChipsPlayedPlayer();
+        chips -= a;
         Dealer.addChipsPlayedPlayer(a);
         hit();
     }
@@ -100,6 +100,9 @@ public  class Player
         return chips;
     }
     
+    /**
+     * This method is used when the dealer takes chips from the player to remove a certain amoun
+     */
     public void removeChips(int remove)
     {
         chips -= remove;
