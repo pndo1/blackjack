@@ -13,6 +13,9 @@ public class Game
 {
 
     public static void main(String [] args){
+
+    }
+    public static void start(){
         boolean playerOn=true;
         boolean dealerOn=true;
         boolean win=false;
@@ -108,7 +111,6 @@ public class Game
                 deal.endRound("d","bust");  
                 System.out.println("dealer bust");
             }
-        }
-
+        }   
     }
 }
