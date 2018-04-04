@@ -18,7 +18,6 @@ public class Dealer
     private static Player player;
     private String name;
     private Scanner scan;
-    private boolean win;
     /**
      * The constructor for the Dealer class is below. It instantiates the Shoe and Hand that the Dealer controls. It 
      * starts of setting the number of chips the player and dealer have won to 0 at the start of the game. It sets
@@ -30,17 +29,20 @@ public class Dealer
      * @Method author: Ryan
      * @Javadocs author: Matt
      */
-    public Dealer(int c, String name, int bet){
+    public Dealer(int c, String name){
         scan=new Scanner(System.in);
-        win=false;
         name=name;
         chips=c;//is this working
+        player=new Player(c);
+    }
+
+    public void startNewRound(int bet){
         numChips=0;chipsWonPlayer=0;chipsWonDealer=0;
         chipsPlayedPlayer=bet;
         chipsPlayedDealer=0;
         shoe=new Shoe(4);
         hand=new Hand();
-        player=new Player(c);
+
         player.hit();
         takeTurn();
         player.hit();
@@ -71,9 +73,10 @@ public class Dealer
         }
     }
 
-    public void nextRound(){
+    public void playRound(){
         boolean playerOn=true;
         boolean dealerOn=true;
+        boolean win=false;
         int playerTurn=0;
         System.out.println("You have: ");
         int playerValue=0;
@@ -81,7 +84,7 @@ public class Dealer
             playerValue+=ca.getCardValue();
             System.out.println(ca);
         }
-        while(playerOn){
+        while(playerOn && !win){
             System.out.print("\nWould you like to hit, stand, or double down? ");
             String t=scan.next();
             if(t.equals("hit")){
@@ -95,10 +98,8 @@ public class Dealer
             }
             if(t.equals("double down")){
                 System.out.println("You now have: ");
-
-                player.removeChips(chipsPlayedPlayer);
                 chipsPlayedPlayer*=2;
-                player.hit();        playerValue=0;
+                player.doubleDown();        playerValue=0;
                 for(Card c:player.revealCards()){
                     playerValue+=c.getCardValue();
                     System.out.println(c);
@@ -117,6 +118,12 @@ public class Dealer
                 endRound("p","bust");   
                 System.out.println("player bust");
             }
+            if(playerValue<21 && player.revealCards().size()==5){
+                win=true;
+                playerOn=false;
+                endRound("p","charlie");
+                System.out.println("player charlie");
+            }
             if(t.equals("stand")){
                 playerOn=false;
             }
@@ -124,7 +131,7 @@ public class Dealer
         System.out.println("The dealer is taking his turn");
         System.out.println("The dealer's deck is: ");
         System.out.println(revealHole()+"\n"+revealOpposite().get(0));
-        while(dealerOn && getValue()<17){
+        while(dealerOn && getValue()<17 && !win){
             takeTurn();
             if(getValue()==21){
                 win=true;
@@ -137,6 +144,12 @@ public class Dealer
                 dealerOn=false;
                 endRound("d","bust");  
                 System.out.println("dealer bust");
+            }
+            if(getValue()<21 && hand.reveal().size()==5){
+                win=true;
+                dealerOn=false;
+                endRound("d","charlie");
+                System.out.println("dealer charlie");
             }
         }      
     }
@@ -242,7 +255,7 @@ public class Dealer
             chipsWonPlayer += (chipsPlayedPlayer*2);
             numChips = 0;
         }
-        if(Player.getHasInsurance()){
+        if(player.getHasInsurance()){
 
         }
     }
