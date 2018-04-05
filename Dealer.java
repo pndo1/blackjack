@@ -104,7 +104,6 @@ public class Dealer
             else if(t.equals("double down")){
                 System.out.println("You now have: ");
                 chipsPlayedPlayer*=2;
-                player.doubleDown();
                 player.hit(dealCard());
                 playerValue=0;
                 for(Card c:player.revealCards()){
@@ -136,7 +135,7 @@ public class Dealer
             }
         }
         System.out.println(dealerOn+" "+getValue()+win);
-        while(dealerOn && getValue()<17 && !win){
+        while(dealerOn && !win){
             System.out.println("The dealer is taking his turn");
             System.out.println("The dealer's deck is: ");
             System.out.println(revealHole()+"\n"+revealOpposite().get(0));
@@ -153,17 +152,20 @@ public class Dealer
                 endRound("d","bust");  
                 //System.out.println("dealer bust");
             }
+            playerValue=0;
+            for(Card ca:player.revealCards()){
+                playerValue+=ca.getCardValue();
+                //System.out.println(ca);
+            }
+            if(getValue()<playerValue){
+                endRound("p","beat");
+            }
+            if(getValue()>playerValue){
+                endRound("d","beat"); 
+            }
         }
-        playerValue=0;
-        for(Card ca:player.revealCards()){
-            playerValue+=ca.getCardValue();
-            System.out.println(ca);
-        }
-        if(getValue()<playerValue){
-            endRound("p","beat");
-        }
-    }
 
+    }
     /**
      * This method reveals the first card in the dealer's hand by calling the getFirst() method from the hand. 
      * @param: none
@@ -257,6 +259,7 @@ public class Dealer
             }
             else if(w.equals("p")){
                 System.out.println("You busted!");
+                player.removeChips(chipsPlayedPlayer);
             }
         }
         else if(c.equals("beat")){

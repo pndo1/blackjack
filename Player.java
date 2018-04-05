@@ -42,20 +42,20 @@ public  class Player
         hand.addCard(card);
     }
 
-    /***
-     * This method doubles the number of chips bet by the player by calling the dealer's
-     * getChipsPlayedPlayer() and then deals one more card to the player by calling the 
-     * hit() method.
-     * @param: none
-     * @return: none (void)
-     * @author: Matt Li
-     */
-    public void doubleDown()
-    {
-        int a = Dealer.getChipsPlayedPlayer();
-        chips -= a;
-        Dealer.addChipsPlayedPlayer(a);
-    }
+    // /***
+     // * This method doubles the number of chips bet by the player by calling the dealer's
+     // * getChipsPlayedPlayer() and then deals one more card to the player by calling the 
+     // * hit() method.
+     // * @param: none
+     // * @return: none (void)
+     // * @author: Matt Li
+     // */
+    // public void doubleDown()
+    // {
+        // int a = Dealer.getChipsPlayedPlayer();
+        // chips -= a;
+        // Dealer.addChipsPlayedPlayer(a);
+    // }
 
     /**
      * This method lets the player buy insurance, with the Game class checking for the Dealer's second Ace. 
