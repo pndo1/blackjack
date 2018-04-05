@@ -55,7 +55,6 @@ public  class Player
         int a = Dealer.getChipsPlayedPlayer();
         chips -= a;
         Dealer.addChipsPlayedPlayer(a);
-        hit(Dealer.dealCard());
     }
 
     /**

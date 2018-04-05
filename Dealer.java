@@ -14,7 +14,7 @@ public class Dealer
 {
     private static Shoe shoe;
     private static Hand hand;
-    private static int chipsPlayedPlayer,chipsPlayedDealer,chips,numChips,chipsWonPlayer,chipsWonDealer;
+    private static int chipsPlayedPlayer,chips,numChips,chipsWonPlayer;
     private Player player;
     private String name;
     private Scanner scan;
@@ -39,9 +39,8 @@ public class Dealer
     }
 
     public void startNewRound(int bet){
-        numChips=0;chipsWonPlayer=0;chipsWonDealer=0;
+        numChips=0;chipsWonPlayer=0;
         chipsPlayedPlayer=bet;
-        chipsPlayedDealer=0;
         shoe=new Shoe(4);
         hand=new Hand();
 
@@ -92,7 +91,7 @@ public class Dealer
         System.out.println("The value is: "+playerValue);
         while(playerOn && !win){
             System.out.print("\nWould you like to hit, stand, or double down? ");
-            String t=scan.next();
+            String t=scan.nextLine();
             if(t.equals("hit")){
                 System.out.println("You now have: ");
                 player.hit(dealCard());        playerValue=0;
@@ -105,7 +104,9 @@ public class Dealer
             else if(t.equals("double down")){
                 System.out.println("You now have: ");
                 chipsPlayedPlayer*=2;
-                player.doubleDown();        playerValue=0;
+                player.doubleDown();
+                player.hit(dealCard());
+                playerValue=0;
                 for(Card c:player.revealCards()){
                     playerValue+=c.getCardValue();
                     System.out.println(c);
@@ -152,7 +153,15 @@ public class Dealer
                 endRound("d","bust");  
                 //System.out.println("dealer bust");
             }
-        }      
+        }
+        playerValue=0;
+        for(Card ca:player.revealCards()){
+            playerValue+=ca.getCardValue();
+            System.out.println(ca);
+        }
+        if(getValue()<playerValue){
+            endRound("p","beat");
+        }
     }
 
     /**
@@ -228,25 +237,15 @@ public class Dealer
         System.out.println("endRound called");
         if(c.equals("blackjack")){
             if(w.equals("d")){
-                int chipWin=chipsPlayedDealer+chipsPlayedDealer*3/2;
-                numChips-=chipWin;
-                chipsWonDealer+=chipWin;
-                chipsWonPlayer+=numChips;
-                numChips=0;
+                System.out.println("You lost blackjack, no chips :(");
             }
             else if(w.equals("p")){
                 System.out.println("You won blackjack!");
-                int chipWin=chipsPlayedPlayer+chipsPlayedPlayer*3/2;
-                numChips-=chipWin;
-                chipsWonPlayer+=chipWin;
-                chipsWonDealer+=numChips;
-                numChips=0;
+                chipsWonPlayer+=chipsPlayedPlayer+chipsPlayedPlayer*3/2;
             }
         }
         else if(c.equals("push")){
-            chipsWonDealer+=chipsPlayedDealer;
             chipsWonPlayer+=chipsPlayedPlayer;
-            numChips=0;
         }
         else if(c.equals("charlie")){
             chipsWonPlayer += (chipsPlayedPlayer*2);
@@ -255,19 +254,9 @@ public class Dealer
         else if(c.equals("bust")){
             if(w.equals("d")){
                 System.out.println("The dealer busted!");
-                int chipWin=0;
-                numChips-=chipWin;
-                chipsWonDealer+=chipWin;
-                chipsWonPlayer+=numChips;
-                numChips=0;
             }
             else if(w.equals("p")){
                 System.out.println("You busted!");
-                int chipWin=0;
-                numChips-=chipWin;
-                chipsWonPlayer+=chipWin;
-                chipsWonDealer+=numChips;
-                numChips=0;
             }
         }
         else if(c.equals("beat")){
@@ -278,23 +267,22 @@ public class Dealer
 
         }
         System.out.println("You've won: "+chipsWonPlayer);
-        System.out.println("The dealer has won: "+chipsWonDealer);
         System.out.println("You have "+player.getChips()+" remaining");
     }
 
-    /**
-     * The push method is used when there is a tie in a round. The player and dealer both get the number of chips they bet
-     * back, and the total number of chips in play is set to 0 since the round is now over.
-     * @param: none
-     * @return: none (void)
-     * @Method author: Ryan
-     * @Javadocs author: Matt
-     */
-    public void push(){
-        chipsWonDealer+=chipsPlayedDealer;
-        chipsWonPlayer+=chipsPlayedPlayer;
-        numChips=0;
-    }
+    // /**
+    // * The push method is used when there is a tie in a round. The player and dealer both get the number of chips they bet
+    // * back, and the total number of chips in play is set to 0 since the round is now over.
+    // * @param: none
+    // * @return: none (void)
+    // * @Method author: Ryan
+    // * @Javadocs author: Matt
+    // */
+    // public void push(){
+    // chipsWonDealer+=chipsPlayedDealer;
+    // chipsWonPlayer+=chipsPlayedPlayer;
+    // numChips=0;
+    // }
 
     /**
      * The getChipsPlayedPlayer method returns the number of chips the player has bet.
