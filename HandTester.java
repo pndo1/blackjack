@@ -38,6 +38,7 @@ public class HandTester
         //tests the getTotalValue() method to total the number value of the Hand
         System.out.println(h1.getTotalValue());
         
+        
     }
 
 }
