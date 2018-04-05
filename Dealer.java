@@ -43,7 +43,7 @@ public class Dealer
         chipsPlayedPlayer=bet;
         shoe=new Shoe(4);
         hand=new Hand();
-
+        player.clearCards();
         player.hit(dealCard());
         takeTurn();
         player.hit(dealCard());
@@ -62,7 +62,7 @@ public class Dealer
         if(!win){
             System.out.print("The dealer's second card is: "+revealOpposite().get(0)+" with a value of: "+revealOpposite().get(0).getCardValue());
             if(revealOpposite().get(0).getCardValue()==10){
-                if(revealOpposite().get(0).getCardValue()+revealHole().getCardValue()==21){endRound("d","blackjack");   
+                if(revealOpposite().get(0).getCardValue()+revealHole().getCardValue()==21){endRound("d","blackjack");win=true;   
                 }
             }
             if(isSecondAce()){
@@ -80,7 +80,7 @@ public class Dealer
     public void playRound(){
         boolean playerOn=true;
         boolean dealerOn=true;
-        boolean win=false;
+        win=false;
         int playerTurn=0;
         System.out.println("\nYou have: ");
         int playerValue=0;
@@ -135,37 +135,43 @@ public class Dealer
             }
         }
         System.out.println(dealerOn+" "+getValue()+win);
-        while(dealerOn && !win){
+        while(dealerOn && getValue()<=21 && !win){
             System.out.println("The dealer is taking his turn");
             System.out.println("The dealer's deck is: ");
             System.out.println(revealHole()+"\n"+revealOpposite().get(0));
             takeTurn();
+            playerValue=0;
+            for(Card ca:player.revealCards()){
+                playerValue+=ca.getCardValue();
+                //System.out.println(ca);
+            }
             if(getValue()==21){
                 win=true;
                 dealerOn=false;
                 endRound("d","blackjack");
                 //System.out.println("dealer blackjack");
             }
-            if(getValue()>21){
+            else if(getValue()>21){
                 win=true;
                 dealerOn=false;
                 endRound("d","bust");  
                 //System.out.println("dealer bust");
             }
-            playerValue=0;
-            for(Card ca:player.revealCards()){
-                playerValue+=ca.getCardValue();
-                //System.out.println(ca);
-            }
-            if(getValue()<playerValue){
+
+            else if(getValue()>=17 && getValue()<playerValue){
                 endRound("p","beat");
+                dealerOn=false;
+                win=true;
             }
-            if(getValue()>playerValue){
+            else if(getValue()>=17 && getValue()>playerValue){
                 endRound("d","beat"); 
+                dealerOn=false;
+                win=true;
             }
         }
 
     }
+
     /**
      * This method reveals the first card in the dealer's hand by calling the getFirst() method from the hand. 
      * @param: none
@@ -237,6 +243,12 @@ public class Dealer
     public void endRound(String w,String c){
 
         System.out.println("endRound called");
+        int playerValue=0;
+        for(Card ca:player.revealCards()){
+            playerValue+=ca.getCardValue();
+            System.out.println(ca);
+        }
+
         if(c.equals("blackjack")){
             if(w.equals("d")){
                 System.out.println("You lost blackjack, no chips :(");
@@ -255,7 +267,8 @@ public class Dealer
         }
         else if(c.equals("bust")){
             if(w.equals("d")){
-                System.out.println("The dealer busted!");
+                System.out.println("The dealer busted! You keep"+chipsPlayedPlayer+" chips.");
+
             }
             else if(w.equals("p")){
                 System.out.println("You busted!");
@@ -270,6 +283,8 @@ public class Dealer
 
         }
         System.out.println("You've won: "+chipsWonPlayer);
+        player.addChips(chipsWonPlayer);
+        chipsWonPlayer=0;
         System.out.println("You have "+player.getChips()+" remaining");
     }
 

@@ -16,14 +16,22 @@ public class Game
     public static void main(String [] args){
         scan=new Scanner(System.in);
         start();
-        System.out.println("Please enter the amount of chips you would like to bet: ");
-        int betChips = scan.nextInt();
-        if(betChips%2==1){
-            System.out.println("Please enter the amount of chips you would like to bet (a number divisible by 2, please): ");
-            betChips = scan.nextInt();
+        boolean play=true;
+        while(play){
+            System.out.println("Please enter the amount of chips you would like to bet: ");
+            int betChips = scan.nextInt();
+            if(betChips%2==1){
+                System.out.println("Please enter the amount of chips you would like to bet (a number divisible by 2, please): ");
+                betChips = scan.nextInt();
+            }
+            deal.startNewRound(betChips);
+            deal.playRound();
+            System.out.println("Next round? ");
+            String next=scan.next();
+            if(next.equals("no")){
+                play=false;   
+            }
         }
-        deal.startNewRound(betChips);
-        deal.playRound();
     }
 
     public static void start(){

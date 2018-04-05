@@ -30,7 +30,7 @@ public class PlayerTester
         System.out.println();
         
         //tests the doubleDown() method
-        player.doubleDown();
+        //player.doubleDown();
         System.out.println(player.revealCards());
         System.out.println("Number of chips: " + player.getChips());
         System.out.println();

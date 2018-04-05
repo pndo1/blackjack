@@ -30,6 +30,10 @@ public  class Player
         chips = numChips;
     }
 
+    public void clearCards(){
+        hand = new Hand();   
+    }
+
     /**
      * This method calls the dealCard() method in the Dealer to add a card to the player's hand 
      * of cards. 
@@ -43,18 +47,18 @@ public  class Player
     }
 
     // /***
-     // * This method doubles the number of chips bet by the player by calling the dealer's
-     // * getChipsPlayedPlayer() and then deals one more card to the player by calling the 
-     // * hit() method.
-     // * @param: none
-     // * @return: none (void)
-     // * @author: Matt Li
-     // */
+    // * This method doubles the number of chips bet by the player by calling the dealer's
+    // * getChipsPlayedPlayer() and then deals one more card to the player by calling the 
+    // * hit() method.
+    // * @param: none
+    // * @return: none (void)
+    // * @author: Matt Li
+    // */
     // public void doubleDown()
     // {
-        // int a = Dealer.getChipsPlayedPlayer();
-        // chips -= a;
-        // Dealer.addChipsPlayedPlayer(a);
+    // int a = Dealer.getChipsPlayedPlayer();
+    // chips -= a;
+    // Dealer.addChipsPlayedPlayer(a);
     // }
 
     /**
@@ -105,6 +109,11 @@ public  class Player
     public void removeChips(int remove)
     {
         chips -= remove;
+    }
+
+    public void addChips(int add)
+    {
+        chips += add;
     }
 
     public ArrayList<Card> revealCards(){return hand.reveal();}
