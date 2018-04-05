@@ -2,7 +2,7 @@ import java.util.Scanner;
 /**
  * Game.java  
  *
- * @author:Pradnya Wani
+ * @author:Pradnya Wani, Ryan
  * Assignment #:
  * 
  * Brief Program Description:
