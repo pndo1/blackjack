@@ -12,9 +12,9 @@ import java.util.ArrayList;
 public  class Player
 {
     private Hand hand;
-    private static boolean hasInsurance;
+    private  boolean hasInsurance;
     private int chips;
-    private static int insurance;
+    private  int insurance;
 
     /**
      * The constructor for the Player class is below. It creates a hand for the player and starts off with the player having
@@ -37,9 +37,9 @@ public  class Player
      * @return: none (void method)
      * @author: Matt Li
      */
-    public void hit()
+    public void hit(Card card)
     {
-        hand.addCard(Dealer.dealCard());
+        hand.addCard(card);
     }
 
     /***
@@ -55,7 +55,7 @@ public  class Player
         int a = Dealer.getChipsPlayedPlayer();
         chips -= a;
         Dealer.addChipsPlayedPlayer(a);
-        hit();
+        hit(Dealer.dealCard());
     }
 
     /**
@@ -81,11 +81,11 @@ public  class Player
      * @return: boolean
      * @author: Matt Li
      */
-    public static boolean getHasInsurance()
+    public  boolean getHasInsurance()
     {
         return hasInsurance;
     }
-    
+
     /**
      * This method returns the number of chips the player has. It will not be called in the Game,
      * but it has been written for testing purposes to make sure number of chips the player has
@@ -99,7 +99,7 @@ public  class Player
     {
         return chips;
     }
-    
+
     /**
      * This method is used when the dealer takes chips from the player to remove a certain amoun
      */
@@ -107,5 +107,6 @@ public  class Player
     {
         chips -= remove;
     }
+
     public ArrayList<Card> revealCards(){return hand.reveal();}
 }
