@@ -16,15 +16,16 @@ public class PlayerTester
     {
         //creates a Player object and Dealer object with 50 chips each
         Player player = new Player(50);
-        Dealer dealer = new Dealer(50);
+        Dealer dealer = new Dealer(50, "Jackson");
         System.out.println("Number of chips: " + player.getChips());
+        System.out.println();
         
-        //tests the revealCards()method that shows what cards the player has
+        //tests the revealCards()method that shows what cards the player has, should be empty
         System.out.println(player.revealCards());
         System.out.println();
         
         //tests the hit() method
-        player.hit();
+        player.hit(new Card(3));
         System.out.println(player.revealCards());
         System.out.println();
         
