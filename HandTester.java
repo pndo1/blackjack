@@ -34,8 +34,11 @@ public class HandTester
         //tests the getOppositeOfFirst method to reveal all the Cards in the Hand except the first one      
         System.out.println(h1.getOppositeOfFirst());
         System.out.println();
+        
+        //tests the getTotalValue() method to total the number value of the Hand
         System.out.println(h1.getTotalValue());
-        System.out.println(h1.reveal());
+        
+        
     }
 
 }

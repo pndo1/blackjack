@@ -29,12 +29,15 @@ public class PlayerTester
         System.out.println(player.revealCards());
         System.out.println();
         
+<<<<<<< HEAD
         //tests the doubleDown() method
         //player.doubleDown();
         System.out.println(player.revealCards());
         System.out.println("Number of chips: " + player.getChips());
         System.out.println();
         
+=======
+>>>>>>> 8b96381ac2f02110dfbec46d015b60768dc3409c
         //tests the the buyInsurance() method and getHasInsurance() method
         player.buyInsurance(20);
         System.out.println(player.getHasInsurance());
@@ -42,7 +45,7 @@ public class PlayerTester
         //creates a new Player object to test the buyInsurance() method and getHasInsurance()
         //this player should not be able to have insurance with the number of chips inputted
         Player player2 = new Player(50);
-        player.buyInsurance(30);
-        System.out.println(player.getHasInsurance());
+        player2.buyInsurance(30);
+        System.out.println(player2.getHasInsurance());
     }
 }

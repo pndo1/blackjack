@@ -24,5 +24,6 @@ public class DealerTester
         
         //tests the revealHole() method, will return first card in the Dealer's Hand
         System.out.println(dealer.revealHole());
+        
     }
 }
