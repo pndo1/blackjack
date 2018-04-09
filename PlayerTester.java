@@ -29,15 +29,15 @@ public class PlayerTester
         System.out.println(player.revealCards());
         System.out.println();
         
-<<<<<<< HEAD
+//<<<<<<< HEAD
         //tests the doubleDown() method
         //player.doubleDown();
         System.out.println(player.revealCards());
         System.out.println("Number of chips: " + player.getChips());
         System.out.println();
         
-=======
->>>>>>> 8b96381ac2f02110dfbec46d015b60768dc3409c
+//=======
+//>>>>>>> 8b96381ac2f02110dfbec46d015b60768dc3409c
         //tests the the buyInsurance() method and getHasInsurance() method
         player.buyInsurance(20);
         System.out.println(player.getHasInsurance());

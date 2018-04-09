@@ -41,6 +41,7 @@ public class Dealer
     public void startNewRound(int bet){
         numChips=0;chipsWonPlayer=0;
         chipsPlayedPlayer=bet;
+        win=false;
         shoe=new Shoe(4);
         hand=new Hand();
         player.clearCards();
@@ -80,15 +81,17 @@ public class Dealer
     public void playRound(){
         boolean playerOn=true;
         boolean dealerOn=true;
-        win=false;
+        int playerValue = 0;
         int playerTurn=0;
-        System.out.println("\nYou have: ");
-        int playerValue=0;
-        for(Card ca:player.revealCards()){
-            playerValue+=ca.getCardValue();
-            System.out.println(ca);
+        if(!win) {
+            System.out.println("\nYou have: ");
+
+            for (Card ca : player.revealCards()) {
+                playerValue += ca.getCardValue();
+                System.out.println(ca);
+            }
+            System.out.println("The value is: " + playerValue);
         }
-        System.out.println("The value is: "+playerValue);
         while(playerOn && !win){
             System.out.print("\nWould you like to hit, stand, or double down? ");
             String t=scan.nextLine();
@@ -159,12 +162,12 @@ public class Dealer
             }
 
             else if(getValue()>=17 && getValue()<playerValue){
-                endRound("p","beat");
+                endRound("d","beat");
                 dealerOn=false;
                 win=true;
             }
             else if(getValue()>=17 && getValue()>playerValue){
-                endRound("d","beat"); 
+                endRound("p","beat");
                 dealerOn=false;
                 win=true;
             }
@@ -242,10 +245,18 @@ public class Dealer
      */
     public void endRound(String w,String c){
 
-        System.out.println("endRound called");
+        System.out.println("endRound called "+c+" "+w);
         int playerValue=0;
+        System.out.println("\nPlayer cards");
         for(Card ca:player.revealCards()){
             playerValue+=ca.getCardValue();
+            System.out.println(ca);
+        }
+
+        System.out.println("\nDealer cards");
+        int dealerValue=0;
+        for(Card ca:hand.reveal()){
+            dealerValue+=ca.getCardValue();
             System.out.println(ca);
         }
 
@@ -280,6 +291,7 @@ public class Dealer
             numChips = 0;
         }
         if(player.getHasInsurance()){
+chipsWonPlayer+=player.getInsurance()*3;
 
         }
         System.out.println("You've won: "+chipsWonPlayer);

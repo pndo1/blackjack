@@ -89,6 +89,8 @@ public  class Player
         return hasInsurance;
     }
 
+    public int getInsurance(){return insurance;}
+
     /**
      * This method returns the number of chips the player has. It will not be called in the Game,
      * but it has been written for testing purposes to make sure number of chips the player has
