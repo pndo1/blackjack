@@ -331,7 +331,6 @@ public class Dealer {
             }
         } else if (c.equals("push")) {
             System.out.println("You tied");
-            chipsWonPlayer += chipsPlayedPlayer;
         } else if (c.equals("charlie")) {
             System.out.println("You won a 5 card charlie!");
             chipsWonPlayer += (chipsPlayedPlayer * 2);
