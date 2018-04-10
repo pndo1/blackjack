@@ -89,6 +89,9 @@ public class Dealer {
         chipsPlayedPlayer += n;
     }
 
+
+
+
     public void startNewRound(int bet) {
         if (shoe.getNumCardsInShoe() < 75)
             shoe.shuffleShoe();
@@ -143,6 +146,14 @@ public class Dealer {
             }
         }
     }
+
+    /***
+     * This method is the base round method. It controls play for a singular round, by allowing the player to take their turn,
+     * and then the dealer, and then calling endRound() if a winning condition is reached.
+     * @param: none
+     * @return: none
+     * @author: Ryan
+     */
 
     public void playRound() {
         boolean playerOn = true;
@@ -337,6 +348,7 @@ public class Dealer {
 
     /**
      * The endRound method is called at the end of the round and allocates the number of chips won by the player and dealer.
+     * It takes two inputs, one that is passed in to show the winner, and one to show the winning condition.
      *
      * @param: String, String
      * @return: none (void)
