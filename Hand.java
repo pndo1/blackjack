@@ -12,6 +12,12 @@ import java.util.ArrayList;
 public class Hand
 {
     private ArrayList<Card> cards;
+    /**
+     * The constructor for the Hand class is below. It creates an object 
+     * made up of an ArrayList of Cards.
+     * @param: none
+     * @return: none
+     */
     public Hand(){ 
         cards=new ArrayList<Card>();
 
