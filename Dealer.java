@@ -4,8 +4,7 @@ import java.util.Scanner;
 /**
  * Dealer.java
  *
- * @author: Assignment #:
- * <p>
+ * @author: Ryan
  * Brief Program Description:
  */
 public class Dealer {
@@ -89,7 +88,16 @@ public class Dealer {
         chipsPlayedPlayer += n;
     }
 
-
+    /**
+     * The startNewRound method takes a bet from the player (via the Game class), and then prepares a new round.
+     * It resets all of the hands, shuffles the shoe if necessary, deals cards, and checks for pre-round  conditions, including
+     * player insurance.
+     *
+     * @param: int
+     * @return: none (void)
+     * @Method author: Ryan
+     * @Javadocs author: Ryan
+     */
 
 
     public void startNewRound(int bet) {
@@ -153,6 +161,18 @@ public class Dealer {
      * @param: none
      * @return: none
      * @author: Ryan
+     */
+
+    /**
+     * The playRound method controls the gameplay during an individual round. It first lets the player take their turn,
+     * allowing them to hit, stand or double down. This method also handles changing the value of Aces. The entire time
+     * this method checks for win conditions for the player. After the player stands, the dealer takes its turn,
+     * automatically. After the dealer has finished, or busted, the method again checks for win conditions.
+     *
+     * @param: none
+     * @return: none (void)
+     * @Method author: Ryan
+     * @Javadocs author: Ryan
      */
 
     public void playRound() {
