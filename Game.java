@@ -19,7 +19,7 @@ public class Game {
         while (play) {
             System.out.print("Please enter the amount of chips you would like to bet: ");
             int betChips = scan.nextInt();
-            if (betChips % 2 == 1) {
+            while (betChips % 2 == 1 || betChips == 0) {
                 System.out.print("Please enter an even amount: ");
                 betChips = scan.nextInt();
             }

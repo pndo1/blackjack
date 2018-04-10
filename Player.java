@@ -100,7 +100,7 @@ public class Player {
     }
 
     /**
-     * This method is used when the dealer takes chips from the player to remove a certain amoun
+     * This method is used when the dealer takes chips from the player to remove a certain amount.
      */
     public void removeChips(int remove) {
         chips -= remove;

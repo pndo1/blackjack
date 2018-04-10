@@ -15,10 +15,10 @@ public class HandTester
     public static void main(String[]args){
         // creates a Hand object
         Hand h1= new Hand();
-        h1.addCard(new Card(4));
-        h1.addCard(new Card(5));
-        h1.addCard(new Card(6));
-        h1.addCard(new Card(7));
+        h1.addCard(new Card(18));
+        h1.addCard(new Card(51));
+        h1.addCard(new Card(39));
+        h1.addCard(new Card(68));
         
         //tests the reveal method, which should print all the cards in h1
         System.out.println(h1.reveal());
