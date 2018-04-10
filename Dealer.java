@@ -120,6 +120,10 @@ public class Dealer {
             endRound("p", "blackjack");
             win = true;
         }
+        if(playerValue==22) {
+            player.revealCards().get(1).setAceToOne(true);
+
+        }
         if (!win) {
             System.out.print("\nThe dealer's deck is:\nUnknown\n" + revealOpposite().get(0));
             if (revealOpposite().get(0).getCardValue() == 10) {
@@ -165,6 +169,13 @@ public class Dealer {
                     System.out.println(c);
                 }
                 System.out.println("\nThe value is: " + playerValue);
+                if(player.revealCards().get(player.revealCards().size()-1).isAce()) {
+                    System.out.print("You just got dealt an Ace, would you like to change it to 1? ");
+                    String ace=scan.nextLine();
+                    if(ace.equals("yes")) {
+                        player.revealCards().get(player.revealCards().size()).setAceToOne(true);
+                    }
+                }
             } else if (t.equals("double down")) {
                 System.out.println("\n" + name + "'s deck:\n");
                 chipsPlayedPlayer *= 2;
@@ -175,15 +186,44 @@ public class Dealer {
                     System.out.println(c);
                 }
                 System.out.println("\nThe value is: " + playerValue);
+                if(player.revealCards().get(player.revealCards().size()-1).isAce()) {
+                    System.out.print("You just got dealt an Ace, would you like to change it to 1?");
+                    String ace=scan.nextLine();
+                    if(ace.equals("yes")) {
+                        player.revealCards().get(player.revealCards().size()-1).setAceToOne(true);
+                    }
+                }
+                playerValue = 0;
+                for (Card c : player.revealCards()) {
+                    playerValue += c.getCardValue();
+                    System.out.println(c);
+                }
             }
-            if (playerValue == 21) {
+            /*if (playerValue == 21) {
                 win = true;
                 playerOn = false;
-                endRound("p", "blackjack");
-            } else if (playerValue > 21) {
-                win = true;
-                playerOn = false;
-                endRound("p", "bust");
+                endRound("p", "blackjack");*/
+             if (playerValue > 21) {
+                int i=0;
+                int ace=-1;
+                ArrayList<Card> cards=player.revealCards();
+                for (Card c:cards) {
+                    if(c.isAce())
+                        ace=cards.indexOf(c);
+                }
+                if(ace!=-1)
+                    player.revealCards().get(ace).setAceToOne(true);
+
+                 playerValue = 0;
+                 for (Card c : player.revealCards()) {
+                     playerValue += c.getCardValue();
+                     System.out.println(c);
+                 }
+                 if(playerValue>21) {
+                     win = true;
+                    playerOn = false;
+                    endRound("p", "bust");
+                }
             } else if (playerValue < 21 && player.revealCards().size() == 5) {
                 win = true;
                 playerOn = false;
@@ -203,14 +243,26 @@ public class Dealer {
             for (Card ca : player.revealCards()) {
                 playerValue += ca.getCardValue();
             }
-            if (getValue() == 21) {
+            /*if (getValue() == 21) {
                 win = true;
                 dealerOn = false;
-                endRound("d", "blackjack");
-            } else if (getValue() > 21) {
-                win = true;
-                dealerOn = false;
-                endRound("d", "bust");
+                endRound("d", "blackjack");*/
+            if (getValue() > 21) {
+                int i=0;
+                int ace=-1;
+                ArrayList<Card> cards=hand.reveal();
+                for (Card c:cards) {
+                    if(c.isAce())
+                        ace=cards.indexOf(c);
+                }
+                if(ace!=-1)
+                    hand.reveal().get(ace).setAceToOne(true);
+
+                if(getValue()>21) {
+                    win = true;
+                    dealerOn = false;
+                    endRound("d", "bust");
+                }
             } else if (getValue() >= 17 && getValue() < playerValue) {
                 endRound("p", "beat");
                 dealerOn = false;
@@ -252,20 +304,6 @@ public class Dealer {
     public ArrayList<Card> revealOpposite() {
         return hand.getOppositeOfFirst();
     }
-
-    // /**
-    // * The push method is used when there is a tie in a round. The player and dealer both get the number of chips they bet
-    // * back, and the total number of chips in play is set to 0 since the round is now over.
-    // * @param: none
-    // * @return: none (void)
-    // * @Method author: Ryan
-    // * @Javadocs author: Matt
-    // */
-    // public void push(){
-    // chipsWonDealer+=chipsPlayedDealer;
-    // chipsWonPlayer+=chipsPlayedPlayer;
-    // numChips=0;
-    // }
 
     /**
      * This method reveals the value of all of the cards in the dealer's hand.
@@ -331,7 +369,7 @@ public class Dealer {
             }
         } else if (c.equals("push")) {
             System.out.println("You tied");
-            chipsWonPlayer += chipsPlayedPlayer;
+//            chipsWonPlayer += chipsPlayedPlayer;
         } else if (c.equals("charlie")) {
             System.out.println("You won a 5 card charlie!");
             chipsWonPlayer += (chipsPlayedPlayer * 2);
