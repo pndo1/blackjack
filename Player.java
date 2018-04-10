@@ -105,15 +105,36 @@ public class Player {
     public void removeChips(int remove) {
         chips -= remove;
     }
-
+    
+    /**
+     * This method is used when the dealer allots scoring and is also 
+     * used in the tester.
+     * @param: int
+     * @return: none (void)
+     * @author: Matt
+     */
     public void addChips(int add) {
         chips += add;
     }
-
+    
+    /**
+     * This method is used in the tester to make sure the player's hand 
+     * changes appropriately when other methods add cards to it.
+     * @param: none
+     * @return: ArrayList<Card>
+     * @author: Matt
+     */
     public ArrayList<Card> revealCards() {
         return hand.reveal();
     }
-
+    
+    /**
+     * This method is used at the start of each round to give the player
+     * a new Hand and to reset its insurance.
+     * @param: none
+     * @return: none (void)
+     * @author: Matt
+     */
     public void newRound() {
         hasInsurance = false;
         insurance = 0;
