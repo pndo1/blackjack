@@ -105,6 +105,7 @@ public class Dealer {
         chipsWonPlayer = 0;
         if (player.getChips() < bet) {
             System.out.println("You bet too much. Reducing bet to total chips: " + player.getChips() + ".");
+            bet=player.getChips();
         }
 
         chipsPlayedPlayer = bet;
@@ -121,7 +122,7 @@ public class Dealer {
             playerValue += ca.getCardValue();
         }
         if (playerValue == 21 && hand.getTotalValue() != 21) {
-            System.out.println(name + "'s deck:\n");
+            System.out.println(name + "'s deck:");
             playerValue = 0;
             for (Card ca : player.revealCards()) {
                 playerValue += ca.getCardValue();
@@ -186,7 +187,7 @@ public class Dealer {
         int playerValue = 0;
         int playerTurn = 0;
         if (!win) {
-            System.out.println("\n\n" + name + "'s deck:\n");
+            System.out.println("\n\n" + name + "'s deck:");
             for (Card ca : player.revealCards()) {
                 playerValue += ca.getCardValue();
                 System.out.println(ca);
@@ -197,7 +198,7 @@ public class Dealer {
             System.out.print("\nWould you like to hit, stand, or double down? ");
             String t = scan.nextLine();
             if (t.equals("hit")) {
-                System.out.println("\n" + name + "'s deck:\n");
+                System.out.println("\n" + name + "'s deck:");
                 player.hit(dealCard());
                 playerValue = 0;
                 for (Card c : player.revealCards()) {
@@ -213,7 +214,7 @@ public class Dealer {
                     }
                 }
             } else if (t.equals("double down") && player.getChips()>=chipsPlayedPlayer) {
-                System.out.println("\n" + name + "'s deck:\n");
+                System.out.println("\n" + name + "'s deck:");
                 chipsPlayedPlayer *= 2;
                 player.hit(dealCard());
                 playerValue = 0;
