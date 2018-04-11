@@ -246,7 +246,7 @@ public class Dealer {
             if (playerValue > 21) {
                 int i=0;
                 int ace=-1;
-                ArrayList<Card> cards=player.revealCards();
+                ArrayList<Card> cards=player.revealCards(); 
                 for (Card c:cards) {
                     if(c.isAce())
                         ace=cards.indexOf(c);
