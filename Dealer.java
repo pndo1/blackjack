@@ -99,7 +99,6 @@ public class Dealer {
      * @Javadocs author: Ryan
      */
 
-
     public void startNewRound(int bet) {
         if (shoe.getNumCardsInShoe() < 75)
             shoe.shuffleShoe();
@@ -231,10 +230,10 @@ public class Dealer {
                 }
             }
             /*if (playerValue == 21) {
-                win = true;
-                playerOn = false;
-                endRound("p", "blackjack");*/
-             if (playerValue > 21) {
+            win = true;
+            playerOn = false;
+            endRound("p", "blackjack");*/
+            if (playerValue > 21) {
                 int i=0;
                 int ace=-1;
                 ArrayList<Card> cards=player.revealCards();
@@ -245,13 +244,13 @@ public class Dealer {
                 if(ace!=-1)
                     player.revealCards().get(ace).setAceToOne(true);
 
-                 playerValue = 0;
-                 for (Card c : player.revealCards()) {
-                     playerValue += c.getCardValue();
-                     System.out.println(c);
-                 }
-                 if(playerValue>21) {
-                     win = true;
+                playerValue = 0;
+                for (Card c : player.revealCards()) {
+                    playerValue += c.getCardValue();
+                    System.out.println(c);
+                }
+                if(playerValue>21) {
+                    win = true;
                     playerOn = false;
                     endRound("p", "bust");
                 }
@@ -264,20 +263,20 @@ public class Dealer {
                 playerOn = false;
             }
         }
-        if (dealerOn && !win) System.out.println("\nThe dealer is taking his turn");
+        if (dealerOn && !win){ System.out.println("\nThe dealer is taking his turn");
+            System.out.println("\nThe dealer's deck: ");
+            System.out.println(revealHole() + "\n" + revealOpposite().get(0));}
         while (dealerOn && getValue() <= 21 && !win) {
 
-            System.out.println("\nThe dealer's deck: ");
-            System.out.println(revealHole() + "\n" + revealOpposite().get(0));
             takeTurn();
             playerValue = 0;
             for (Card ca : player.revealCards()) {
                 playerValue += ca.getCardValue();
             }
             /*if (getValue() == 21) {
-                win = true;
-                dealerOn = false;
-                endRound("d", "blackjack");*/
+            win = true;
+            dealerOn = false;
+            endRound("d", "blackjack");*/
             if (getValue() > 21) {
                 int i=0;
                 int ace=-1;
@@ -401,7 +400,7 @@ public class Dealer {
             }
         } else if (c.equals("push")) {
             System.out.println("You tied");
-//            chipsWonPlayer += chipsPlayedPlayer;
+            //            chipsWonPlayer += chipsPlayedPlayer;
         } else if (c.equals("charlie")) {
             System.out.println("You won a 5 card charlie!");
             chipsWonPlayer += (chipsPlayedPlayer * 2);

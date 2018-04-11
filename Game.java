@@ -25,7 +25,7 @@ public class Game {
             }
             deal.startNewRound(betChips);
             deal.playRound();
-            System.out.println("\nNext round? ");
+            System.out.print("\nNext round? ");
             String next = scan.next();
             if (next.equals("no")) {
                 play = false;
