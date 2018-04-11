@@ -378,7 +378,7 @@ public class Dealer {
 
         //System.out.println("endRound called " + c + " " + w);
         int playerValue = 0;
-        System.out.println("\n" + name + "'s deck:\n");
+        System.out.println("\n" + name + "'s deck:");
         for (Card ca : player.revealCards()) {
             playerValue += ca.getCardValue();
             System.out.println(ca);
