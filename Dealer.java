@@ -150,231 +150,235 @@ public class Dealer {
                     int insureChips = scan.nextInt();
                     player.buyInsurance(insureChips);
                 }
+                if (revealOpposite().get(0).getCardValue() + revealHole().getCardValue() == 21) {
+                    endRound("d", "blackjack");
+                    win = true;
+
+                }
             }
         }
-    }
 
-    /***
-     * This method is the base round method. It controls play for a singular round, by allowing the player to take their turn,
-     * and then the dealer, and then calling endRound() if a winning condition is reached.
-     * @param: none
-     * @return: none
-     * @author: Ryan
-     */
+        /***
+         * This method is the base round method. It controls play for a singular round, by allowing the player to take their turn,
+         * and then the dealer, and then calling endRound() if a winning condition is reached.
+         * @param: none
+         * @return: none
+         * @author: Ryan
+         */
 
-    /**
-     * The playRound method controls the gameplay during an individual round. It first lets the player take their turn,
-     * allowing them to hit, stand or double down. This method also handles changing the value of Aces. The entire time
-     * this method checks for win conditions for the player. After the player stands, the dealer takes its turn,
-     * automatically. After the dealer has finished, or busted, the method again checks for win conditions.
-     *
-     * @param: none
-     * @return: none (void)
-     * @Method author: Ryan
-     * @Javadocs author: Ryan
-     */
+        /**
+         * The playRound method controls the gameplay during an individual round. It first lets the player take their turn,
+         * allowing them to hit, stand or double down. This method also handles changing the value of Aces. The entire time
+         * this method checks for win conditions for the player. After the player stands, the dealer takes its turn,
+         * automatically. After the dealer has finished, or busted, the method again checks for win conditions.
+         *
+         * @param: none
+         * @return: none (void)
+         * @Method author: Ryan
+         * @Javadocs author: Ryan
+         */
 
-    public void playRound() {
-        boolean playerOn = true;
-        boolean dealerOn = true;
-        int playerValue = 0;
-        int playerTurn = 0;
-        if (!win) {
-            System.out.println("\n\n" + name + "'s deck:\n");
-            for (Card ca : player.revealCards()) {
-                playerValue += ca.getCardValue();
-                System.out.println(ca);
-            }
-            System.out.println("\nThe value is: " + playerValue);
-        }
-        while (playerOn && !win) {
-            System.out.print("\nWould you like to hit, stand, or double down? ");
-            String t = scan.nextLine();
-            if (t.equals("hit")) {
-                System.out.println("\n" + name + "'s deck:\n");
-                player.hit(dealCard());
-                playerValue = 0;
-                for (Card c : player.revealCards()) {
-                    playerValue += c.getCardValue();
-                    System.out.println(c);
+        public void playRound() {
+            boolean playerOn = true;
+            boolean dealerOn = true;
+            int playerValue = 0;
+            int playerTurn = 0;
+            if (!win) {
+                System.out.println("\n\n" + name + "'s deck:\n");
+                for (Card ca : player.revealCards()) {
+                    playerValue += ca.getCardValue();
+                    System.out.println(ca);
                 }
                 System.out.println("\nThe value is: " + playerValue);
-                if(player.revealCards().get(player.revealCards().size()-1).isAce()) {
-                    System.out.print("You just got dealt an Ace, would you like to change it to 1? ");
-                    String ace=scan.nextLine();
-                    if(ace.equals("yes")) {
-                        player.revealCards().get(player.revealCards().size()).setAceToOne(true);
-                    }
-                }
-            } else if (t.equals("double down")) {
-                System.out.println("\n" + name + "'s deck:\n");
-                chipsPlayedPlayer *= 2;
-                player.hit(dealCard());
-                playerValue = 0;
-                for (Card c : player.revealCards()) {
-                    playerValue += c.getCardValue();
-                    System.out.println(c);
-                }
-                System.out.println("\nThe value is: " + playerValue);
-                if(player.revealCards().get(player.revealCards().size()-1).isAce()) {
-                    System.out.print("You just got dealt an Ace, would you like to change it to 1?");
-                    String ace=scan.nextLine();
-                    if(ace.equals("yes")) {
-                        player.revealCards().get(player.revealCards().size()-1).setAceToOne(true);
-                    }
-                }
-                playerValue = 0;
-                for (Card c : player.revealCards()) {
-                    playerValue += c.getCardValue();
-                    System.out.println(c);
-                }
             }
-            /*if (playerValue == 21) {
-            win = true;
-            playerOn = false;
-            endRound("p", "blackjack");*/
-            if (playerValue > 21) {
-                int i=0;
-                int ace=-1;
-                ArrayList<Card> cards=player.revealCards();
-                for (Card c:cards) {
-                    if(c.isAce())
-                        ace=cards.indexOf(c);
+            while (playerOn && !win) {
+                System.out.print("\nWould you like to hit, stand, or double down? ");
+                String t = scan.nextLine();
+                if (t.equals("hit")) {
+                    System.out.println("\n" + name + "'s deck:\n");
+                    player.hit(dealCard());
+                    playerValue = 0;
+                    for (Card c : player.revealCards()) {
+                        playerValue += c.getCardValue();
+                        System.out.println(c);
+                    }
+                    System.out.println("\nThe value is: " + playerValue);
+                    if(player.revealCards().get(player.revealCards().size()-1).isAce()) {
+                        System.out.print("You just got dealt an Ace, would you like to change it to 1? ");
+                        String ace=scan.nextLine();
+                        if(ace.equals("yes")) {
+                            player.revealCards().get(player.revealCards().size()).setAceToOne(true);
+                        }
+                    }
+                } else if (t.equals("double down")) {
+                    System.out.println("\n" + name + "'s deck:\n");
+                    chipsPlayedPlayer *= 2;
+                    player.hit(dealCard());
+                    playerValue = 0;
+                    for (Card c : player.revealCards()) {
+                        playerValue += c.getCardValue();
+                        System.out.println(c);
+                    }
+                    System.out.println("\nThe value is: " + playerValue);
+                    if(player.revealCards().get(player.revealCards().size()-1).isAce()) {
+                        System.out.print("You just got dealt an Ace, would you like to change it to 1?");
+                        String ace=scan.nextLine();
+                        if(ace.equals("yes")) {
+                            player.revealCards().get(player.revealCards().size()-1).setAceToOne(true);
+                        }
+                    }
+                    playerValue = 0;
+                    for (Card c : player.revealCards()) {
+                        playerValue += c.getCardValue();
+                        System.out.println(c);
+                    }
                 }
-                if(ace!=-1)
-                    player.revealCards().get(ace).setAceToOne(true);
+                /*if (playerValue == 21) {
+                win = true;
+                playerOn = false;
+                endRound("p", "blackjack");*/
+                if (playerValue > 21) {
+                    int i=0;
+                    int ace=-1;
+                    ArrayList<Card> cards=player.revealCards();
+                    for (Card c:cards) {
+                        if(c.isAce())
+                            ace=cards.indexOf(c);
+                    }
+                    if(ace!=-1)
+                        player.revealCards().get(ace).setAceToOne(true);
 
-                playerValue = 0;
-                for (Card c : player.revealCards()) {
-                    playerValue += c.getCardValue();
-                    System.out.println(c);
-                }
-                if(playerValue>21) {
+                    playerValue = 0;
+                    for (Card c : player.revealCards()) {
+                        playerValue += c.getCardValue();
+                        System.out.println(c);
+                    }
+                    if(playerValue>21) {
+                        win = true;
+                        playerOn = false;
+                        endRound("p", "bust");
+                    }
+                } else if (playerValue < 21 && player.revealCards().size() == 5) {
                     win = true;
                     playerOn = false;
-                    endRound("p", "bust");
+                    endRound("p", "charlie");
                 }
-            } else if (playerValue < 21 && player.revealCards().size() == 5) {
+                if (t.equals("stand")) {
+                    playerOn = false;
+                }
+            }
+            if (dealerOn && !win){ System.out.println("\nThe dealer is taking his turn");
+                System.out.println("\nThe dealer's deck: ");
+                System.out.println(revealHole() + "\n" + revealOpposite().get(0));}
+            while (dealerOn && getValue() <= 21 && !win) {
+
+                takeTurn();
+                playerValue = 0;
+                for (Card ca : player.revealCards()) {
+                    playerValue += ca.getCardValue();
+                }
+                /*if (getValue() == 21) {
                 win = true;
-                playerOn = false;
-                endRound("p", "charlie");
-            }
-            if (t.equals("stand")) {
-                playerOn = false;
-            }
-        }
-        if (dealerOn && !win){ System.out.println("\nThe dealer is taking his turn");
-            System.out.println("\nThe dealer's deck: ");
-            System.out.println(revealHole() + "\n" + revealOpposite().get(0));}
-        while (dealerOn && getValue() <= 21 && !win) {
+                dealerOn = false;
+                endRound("d", "blackjack");*/
+                if (getValue() > 21) {
+                    int i=0;
+                    int ace=-1;
+                    ArrayList<Card> cards=hand.reveal();
+                    for (Card c:cards) {
+                        if(c.isAce())
+                            ace=cards.indexOf(c);
+                    }
+                    if(ace!=-1)
+                        hand.reveal().get(ace).setAceToOne(true);
 
-            takeTurn();
-            playerValue = 0;
-            for (Card ca : player.revealCards()) {
-                playerValue += ca.getCardValue();
-            }
-            /*if (getValue() == 21) {
-            win = true;
-            dealerOn = false;
-            endRound("d", "blackjack");*/
-            if (getValue() > 21) {
-                int i=0;
-                int ace=-1;
-                ArrayList<Card> cards=hand.reveal();
-                for (Card c:cards) {
-                    if(c.isAce())
-                        ace=cards.indexOf(c);
-                }
-                if(ace!=-1)
-                    hand.reveal().get(ace).setAceToOne(true);
-
-                if(getValue()>21) {
-                    win = true;
+                    if(getValue()>21) {
+                        win = true;
+                        dealerOn = false;
+                        endRound("d", "bust");
+                    }
+                } else if (getValue() >= 17 && getValue() < playerValue) {
+                    endRound("p", "beat");
                     dealerOn = false;
-                    endRound("d", "bust");
+                    win = true;
+                } else if (getValue() >= 17 && getValue() > playerValue) {
+                    endRound("d", "beat");
+                    dealerOn = false;
+                    win = true;
+                } else if (getValue() >= 17 && getValue() == playerValue) {
+                    endRound("p", "push");
+                    dealerOn = false;
+                    win = true;
                 }
-            } else if (getValue() >= 17 && getValue() < playerValue) {
-                endRound("p", "beat");
-                dealerOn = false;
-                win = true;
-            } else if (getValue() >= 17 && getValue() > playerValue) {
-                endRound("d", "beat");
-                dealerOn = false;
-                win = true;
-            } else if (getValue() >= 17 && getValue() == playerValue) {
-                endRound("p", "push");
-                dealerOn = false;
-                win = true;
+
             }
 
         }
 
-    }
-
-    /**
-     * This method reveals the first card in the dealer's hand by calling the getFirst() method from the hand.
-     *
-     * @param: none
-     * @return: Card
-     * @Method author: Ryan
-     * @Javadocs author: Matt
-     */
-    public Card revealHole() {
-        return hand.getFirst();
-    }
-
-    /**
-     * This method reveals the other cards in the dealer's hand by calling the getOppositeOfFirst() method from the hand.
-     *
-     * @param: none
-     * @return: Card
-     * @Method author: Ryan
-     * @Javadocs author: Ryan
-     */
-    public ArrayList<Card> revealOpposite() {
-        return hand.getOppositeOfFirst();
-    }
-
-    /**
-     * This method reveals the value of all of the cards in the dealer's hand.
-     *
-     * @param: none
-     * @return: int
-     * @Method author: Ryan
-     * @Javadocs author: Ryan
-     */
-    public int getValue() {
-
-        return hand.getTotalValue();
-    }
-
-    /**
-     * The takeTurn() method forces the dealer to hit or stand based on the total value of his cards, which is found
-     * by calling the getTotalValue() method from the Hand class. If the total value of the dealer's cards is less
-     * than 17, the dealer stands.
-     *
-     * @param: none
-     * @return: void
-     * @Method author: Ryan
-     * @Javadocs author: Matt
-     */
-    public void takeTurn() {
-        if (hand.getTotalValue() < 17) {
-            hand.addCard(dealCard());
+        /**
+         * This method reveals the first card in the dealer's hand by calling the getFirst() method from the hand.
+         *
+         * @param: none
+         * @return: Card
+         * @Method author: Ryan
+         * @Javadocs author: Matt
+         */
+        public Card revealHole() {
+            return hand.getFirst();
         }
 
-    }
+        /**
+         * This method reveals the other cards in the dealer's hand by calling the getOppositeOfFirst() method from the hand.
+         *
+         * @param: none
+         * @return: Card
+         * @Method author: Ryan
+         * @Javadocs author: Ryan
+         */
+        public ArrayList<Card> revealOpposite() {
+            return hand.getOppositeOfFirst();
+        }
 
-    /**
-     * The endRound method is called at the end of the round and allocates the number of chips won by the player and dealer.
-     * It takes two inputs, one that is passed in to show the winner, and one to show the winning condition.
-     *
-     * @param: String, String
-     * @return: none (void)
-     * @Method author: Ryan
-     * @Javadocs author: Matt
-     */
-    public void endRound(String w, String c) {
+        /**
+         * This method reveals the value of all of the cards in the dealer's hand.
+         *
+         * @param: none
+         * @return: int
+         * @Method author: Ryan
+         * @Javadocs author: Ryan
+         */
+        public int getValue() {
+
+            return hand.getTotalValue();
+        }
+
+        /**
+         * The takeTurn() method forces the dealer to hit or stand based on the total value of his cards, which is found
+         * by calling the getTotalValue() method from the Hand class. If the total value of the dealer's cards is less
+         * than 17, the dealer stands.
+         *
+         * @param: none
+         * @return: void
+         * @Method author: Ryan
+         * @Javadocs author: Matt
+         */
+        public void takeTurn() {
+            if (hand.getTotalValue() < 17) {
+                hand.addCard(dealCard());
+            }
+
+        }
+
+        /**
+         * The endRound method is called at the end of the round and allocates the number of chips won by the player and dealer.
+         * It takes two inputs, one that is passed in to show the winner, and one to show the winning condition.
+         *
+         * @param: String, String
+         * @return: none (void)
+         * @Method author: Ryan
+         * @Javadocs author: Matt
+         */
+        public void endRound(String w, String c) {
 
         //System.out.println("endRound called " + c + " " + w);
         int playerValue = 0;
