@@ -438,4 +438,16 @@ public class Dealer {
         chipsWonPlayer = 0;
         System.out.println("You have " + player.getChips() + " chips remaining");
     }
+    /**
+     * The getChips() method is used for the dealer in the Game class
+     * which will prevent the game from being played if the player
+     * has one chip or less because an odd or no chips can't be bet.
+     * @param: none
+     * @return: int
+     * @author: Matt
+     */
+    public int getChips()
+    {
+        return player.getChips();
+    }
 }

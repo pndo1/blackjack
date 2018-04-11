@@ -16,7 +16,9 @@ public class Game {
         scan = new Scanner(System.in);
         start();
         boolean play = true;
-        while (play) {
+        
+        while (play && deal.getChips() > 1) {
+           
             System.out.print("Please enter the amount of chips you would like to bet: ");
             int betChips = scan.nextInt();
             while (betChips % 2 == 1 || betChips == 0 || betChips < 0) {
