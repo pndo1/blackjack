@@ -212,7 +212,7 @@ public class Dealer {
                         player.revealCards().get(player.revealCards().size()).setAceToOne(true);
                     }
                 }
-            } else if (t.equals("double down") && player.getChips()>=chipsPlayedPlayer*2) {
+            } else if (t.equals("double down") && player.getChips()>=chipsPlayedPlayer) {
                 System.out.println("\n" + name + "'s deck:\n");
                 chipsPlayedPlayer *= 2;
                 player.hit(dealCard());
@@ -235,7 +235,7 @@ public class Dealer {
                     System.out.println(c);
                 }
             }
-            else if(t.equals("double down") && player.getChips()<chipsPlayedPlayer*2)
+            else if(t.equals("double down") && player.getChips()<chipsPlayedPlayer)
             {
                 System.out.println("You don't have enough chips.");
             }
