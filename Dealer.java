@@ -4,8 +4,7 @@ import java.util.Scanner;
 /**
  * Dealer.java
  *
- * @author: Assignment #:
- * <p>
+ * @author: Ryan
  * Brief Program Description:
  */
 public class Dealer {
@@ -89,6 +88,18 @@ public class Dealer {
         chipsPlayedPlayer += n;
     }
 
+    /**
+     * The startNewRound method takes a bet from the player (via the Game class), and then prepares a new round.
+     * It resets all of the hands, shuffles the shoe if necessary, deals cards, and checks for pre-round  conditions, including
+     * player insurance.
+     *
+     * @param: int
+     * @return: none (void)
+     * @Method author: Ryan
+     * @Javadocs author: Ryan
+     */
+
+
     public void startNewRound(int bet) {
         if (shoe.getNumCardsInShoe() < 75)
             shoe.shuffleShoe();
@@ -143,6 +154,26 @@ public class Dealer {
             }
         }
     }
+
+    /***
+     * This method is the base round method. It controls play for a singular round, by allowing the player to take their turn,
+     * and then the dealer, and then calling endRound() if a winning condition is reached.
+     * @param: none
+     * @return: none
+     * @author: Ryan
+     */
+
+    /**
+     * The playRound method controls the gameplay during an individual round. It first lets the player take their turn,
+     * allowing them to hit, stand or double down. This method also handles changing the value of Aces. The entire time
+     * this method checks for win conditions for the player. After the player stands, the dealer takes its turn,
+     * automatically. After the dealer has finished, or busted, the method again checks for win conditions.
+     *
+     * @param: none
+     * @return: none (void)
+     * @Method author: Ryan
+     * @Javadocs author: Ryan
+     */
 
     public void playRound() {
         boolean playerOn = true;
@@ -337,6 +368,7 @@ public class Dealer {
 
     /**
      * The endRound method is called at the end of the round and allocates the number of chips won by the player and dealer.
+     * It takes two inputs, one that is passed in to show the winner, and one to show the winning condition.
      *
      * @param: String, String
      * @return: none (void)
