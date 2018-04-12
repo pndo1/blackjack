@@ -210,7 +210,7 @@ public class Dealer {
                     System.out.print("You just got dealt an Ace, would you like to change it to 1? ");
                     String ace=scan.nextLine();
                     if(ace.equals("yes")) {
-                        player.revealCards().get(player.revealCards().size()).setAceToOne(true);
+                        player.revealCards().get(player.revealCards().size()-1).setAceToOne(true);
                     }
                 }
             } else if (t.equals("double down") && player.getChips()>=chipsPlayedPlayer*2) {
@@ -265,7 +265,7 @@ public class Dealer {
                     playerOn = false;
                     endRound("p", "bust");
                 }
-            } else if (playerValue < 21 && player.revealCards().size() == 5) {
+            } else if (playerValue <= 21 && player.revealCards().size() == 5) {
                 win = true;
                 playerOn = false;
                 endRound("p", "charlie");
